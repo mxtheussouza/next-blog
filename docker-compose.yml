@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+    devhack-blog-db:
+        image: postgres
+        container_name: devhack-blog-db
+        environment:
+            POSTGRES_DB: devhack_blog_db
+            POSTGRES_USER: devhack
+            POSTGRES_PASSWORD: devhack
+        ports:
+            - 5533:5432

@@ -1,0 +1,14 @@
+{
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "[javascript][javascriptreact][typescript][typescriptreact]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false,
+    },
+    "javascript.suggest.autoImports" : true,
+    "javascript.updateImportsOnFileMove.enabled" : "always",
+    "typescript.suggest.autoImports" : true,
+    "typescript.updateImportsOnFileMove.enabled": "never",
+}
