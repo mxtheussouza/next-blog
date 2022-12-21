@@ -1,6 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "@/lib/prisma";
 
+import { stringToSlug } from "@/utils/stringToSlug";
+
 export default async function handle(
   request: NextApiRequest,
   response: NextApiResponse,
@@ -9,13 +11,16 @@ export default async function handle(
     return response.status(405).end();
   }
 
-  const data = JSON.parse(request.body);
+  const { title, content, user } = request.body;
 
   await prisma.post.create({
     data: {
-      data,
+      title: title,
+      content: content,
+      slug: stringToSlug(title),
+      author: { connect: { email: user?.email } },
     },
   });
 
-  return response.status(201).json({ message: "Post published successfully." });
+  return response.status(201).json({ message: "Post created successfully." });
 }
