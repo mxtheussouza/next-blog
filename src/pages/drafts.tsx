@@ -1,6 +1,6 @@
 import React from "react";
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import { useSession, getSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import { prisma } from "@/lib/prisma";
 
 import Card from "@/components/Card";
@@ -8,31 +8,30 @@ import Card from "@/components/Card";
 export default function Drafts({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const { data: session } = useSession();
-
-  if (!session) {
-    return (
-      <>
-        <h1>My Drafts</h1>
-        <div>You need to be authenticated to view this page.</div>
-      </>
-    );
-  }
-
   return (
-    <div>
-      <h1>My Drafts</h1>
+    <div className="container mx-auto bg-white w-full py-6 px-8 my-10">
+      <h1 className="text-center text-2xl text-gray-500 font-bold mb-10">
+        Meus Rascunhos
+      </h1>
+
       <main>
-        {data.map((post: any) => (
-          <Card
-            key={post.id}
-            title={post.title}
-            content={post.content}
-            createdAt={post.createdAt}
-            authorName={post.author.name}
-            authorImage={post.author.image}
-          />
-        ))}
+        {data.length ? (
+          <>
+            {data.map((post: any) => (
+              <Card
+                key={post.id}
+                title={post.title}
+                slug={post.slug}
+                createdAt={post.createdAt}
+                authorName={post.author.name}
+                authorGitHub={post.author.username}
+                authorImage={post.author.image}
+              />
+            ))}
+          </>
+        ) : (
+          <p className="text-center">Você ainda não possue rascunhos.</p>
+        )}
       </main>
     </div>
   );
