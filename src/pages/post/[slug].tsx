@@ -3,9 +3,11 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import Router from "next/router";
-import ReactMarkdown from "react-markdown";
 import { prisma } from "@/lib/prisma";
 import { useSession } from "next-auth/react";
+import { Viewer } from "@bytemd/react";
+
+import { bytemdPlugins } from "@/utils/bytemdPlugins";
 
 export default function Post({
   data,
@@ -28,6 +30,13 @@ export default function Post({
     await Router.push("/");
   };
 
+  const deletePost = async (id: string): Promise<void> => {
+    await fetch(`/api/post/${id}`, {
+      method: "DELETE",
+    });
+    Router.push("/");
+  };
+
   return (
     <>
       <Head>
@@ -38,8 +47,8 @@ export default function Post({
         <div className="flex justify-between px-4 mx-auto max-w-screen-xl ">
           <article className="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
             <header className="mb-4 lg:mb-6 not-format">
-              <address className="flex items-center mb-6 not-italic">
-                <div className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
+              <address className="flex items-center mb-6 not-italic md:flex-row flex-col">
+                <div className="mb-4 md:mb-0 inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
                   <Image
                     alt="Profile Image"
                     className="mr-4 rounded-full"
@@ -68,23 +77,35 @@ export default function Post({
                     <p className="text-base font-light text-gray-500 dark:text-gray-400"></p>
                   </div>
                 </div>
-                {!data.published &&
-                  userHasValidSession &&
-                  postBelongsToUser && (
+                <div className="flex gap-4">
+                  {!data.published &&
+                    userHasValidSession &&
+                    postBelongsToUser && (
+                      <button
+                        className="bg-white hover:bg-gray-100 text-gray-800 font-bold py-2 px-4 border-b-4 border-gray-500 hover:border-gray-500 rounded shadow flex gap-2"
+                        onClick={() => publishPost(data.id)}
+                      >
+                        Publicar
+                      </button>
+                    )}
+                  {userHasValidSession && postBelongsToUser && (
                     <button
-                      className="bg-white hover:bg-gray-100 text-gray-800 font-bold py-2 px-4 border-b-4 border-gray-500 hover:border-gray-500 rounded shadow flex gap-2"
-                      onClick={() => publishPost(data.id)}
+                      className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-800 rounded shadow flex gap-2"
+                      onClick={() => deletePost(data.id)}
                     >
-                      Publicar
+                      Deletar
                     </button>
                   )}
+                </div>
               </address>
               <h1 className="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">
                 {postTitle[data.published]}
               </h1>
             </header>
 
-            <ReactMarkdown>{data.content}</ReactMarkdown>
+            <div className="overflow-hidden">
+              <Viewer value={data.content} plugins={bytemdPlugins} />
+            </div>
 
             <hr className="my-8 h-px bg-gray-200 border-0 dark:bg-gray-700" />
 
