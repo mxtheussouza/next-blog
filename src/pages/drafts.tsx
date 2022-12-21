@@ -3,7 +3,7 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { getSession } from "next-auth/react";
 import { prisma } from "@/lib/prisma";
 
-import Card from "@/components/Card";
+import Card, { PostProps } from "@/components/Card";
 
 export default function Drafts({
   data,
@@ -17,7 +17,7 @@ export default function Drafts({
       <main>
         {data.length ? (
           <>
-            {data.map((post: any) => (
+            {data.map((post: PostProps) => (
               <Card
                 key={post.id}
                 title={post.title}

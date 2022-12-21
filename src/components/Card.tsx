@@ -1,6 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 
+export interface PostProps {
+  id: string;
+  title: string;
+  slug: string;
+  createdAt: string;
+  author: {
+    name: string;
+    username: string;
+    image: string;
+  };
+}
+
 interface CardProps {
   title: string;
   slug: string;

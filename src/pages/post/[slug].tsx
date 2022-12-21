@@ -2,45 +2,28 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
-import Router from "next/router";
-import { prisma } from "@/lib/prisma";
-import { useSession } from "next-auth/react";
 import { Viewer } from "@bytemd/react";
+import { prisma } from "@/lib/prisma";
 
 import { bytemdPlugins } from "@/utils/bytemdPlugins";
+
+import usePosts from "@/hooks/usePosts";
 
 export default function Post({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const { data: session } = useSession();
-
-  const userHasValidSession = Boolean(session);
-
-  const postBelongsToUser = session?.user?.email === data.author?.email;
-
-  const postTitle = {
-    true: data.title,
-    false: `${data.title} (Draft)`,
-  } as any;
-
-  const publishPost = async (id: string): Promise<void> => {
-    await fetch(`/api/publish/${id}`, {
-      method: "PUT",
-    });
-    await Router.push("/");
-  };
-
-  const deletePost = async (id: string): Promise<void> => {
-    await fetch(`/api/post/${id}`, {
-      method: "DELETE",
-    });
-    Router.push("/");
-  };
+  const {
+    userHasValidSession,
+    postBelongsToUser,
+    postTitle,
+    publishPost,
+    deletePost,
+  } = usePosts(data);
 
   return (
     <>
       <Head>
-        <title>DevHack News | {data.title}</title>
+        <title>DevHack News | {data?.title}</title>
       </Head>
 
       <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900">
@@ -78,12 +61,12 @@ export default function Post({
                   </div>
                 </div>
                 <div className="flex gap-4">
-                  {!data.published &&
+                  {!data?.published &&
                     userHasValidSession &&
                     postBelongsToUser && (
                       <button
                         className="bg-white hover:bg-gray-100 text-gray-800 font-bold py-2 px-4 border-b-4 border-gray-500 hover:border-gray-500 rounded shadow flex gap-2"
-                        onClick={() => publishPost(data.id)}
+                        onClick={() => publishPost(data?.id)}
                       >
                         Publicar
                       </button>
@@ -91,7 +74,7 @@ export default function Post({
                   {userHasValidSession && postBelongsToUser && (
                     <button
                       className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-800 rounded shadow flex gap-2"
-                      onClick={() => deletePost(data.id)}
+                      onClick={() => deletePost(data?.id)}
                     >
                       Deletar
                     </button>
@@ -99,12 +82,12 @@ export default function Post({
                 </div>
               </address>
               <h1 className="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">
-                {postTitle[data.published]}
+                {postTitle[data?.published]}
               </h1>
             </header>
 
             <div className="overflow-hidden">
-              <Viewer value={data.content} plugins={bytemdPlugins} />
+              <Viewer value={data?.content} plugins={bytemdPlugins} />
             </div>
 
             <hr className="my-8 h-px bg-gray-200 border-0 dark:bg-gray-700" />
