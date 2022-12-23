@@ -6,11 +6,12 @@ import { prisma } from "@/lib/prisma";
 import Card, { PostProps } from "@/components/Card";
 import NotSession from "@/components/Home/NotSession";
 import HasSession from "@/components/Home/HasSession";
+import NoContent from "@/components/Home/NoContent";
 
 export default function Home({
   data,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   return (
     <>
@@ -19,7 +20,11 @@ export default function Home({
       </Head>
 
       <main className="container mx-auto bg-white w-full py-6 px-8 my-10">
-        {!session ? <NotSession /> : <HasSession />}
+        {status === "loading" ? (
+          <NoContent />
+        ) : (
+          <>{!session ? <NotSession /> : <HasSession />}</>
+        )}
       </main>
 
       {data.map((post: PostProps) => (
