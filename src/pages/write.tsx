@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { Editor } from "@bytemd/react";
 import byteMDLocale from "bytemd/locales/pt_BR.json";
 
@@ -10,7 +11,7 @@ export default function Write() {
   const [title, setTitle] = React.useState<string>("");
   const [content, setContent] = React.useState<string>("");
 
-  const { handleSubmit, handleCancel } = useWrite(title, content);
+  const { handleSubmit } = useWrite(title, content);
 
   return (
     <>
@@ -49,12 +50,12 @@ export default function Write() {
             >
               Criar
             </button>
-            <button
+            <Link
               className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-800 rounded shadow flex gap-2"
-              onClick={handleCancel}
+              href={"/"}
             >
               Cancelar
-            </button>
+            </Link>
           </div>
         </form>
       </div>

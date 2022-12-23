@@ -22,9 +22,5 @@ export default function useWrite(title: string, content: string) {
     }
   };
 
-  const handleCancel = () => {
-    Router.push("/");
-  };
-
-  return { handleSubmit, handleCancel };
+  return { handleSubmit };
 }
