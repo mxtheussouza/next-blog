@@ -31,7 +31,15 @@ export default function Write() {
             onChange={e => setTitle(e.target.value)}
             required
           />
-          <div className="w-full">
+          <textarea
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-blue-500 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Escreva seu conteúdo..."
+            value={content}
+            onChange={e => setContent(e.target.value)}
+            rows={8}
+            required
+          ></textarea>
+          {/* <div className="w-full">
             <Editor
               mode="tab"
               locale={byteMDLocale}
@@ -39,7 +47,7 @@ export default function Write() {
               plugins={bytemdPlugins}
               onChange={e => setContent(e)}
             />
-          </div>
+          </div> */}
           <div className="flex gap-4 flex-col sm:flex-row">
             <button
               className={`${
