@@ -33,7 +33,7 @@ export default function Card({
   const dateFormater = new Date(createdAt).toDateString().substring(4);
 
   return (
-    <div className="pb-10 px-10 flex flex-col justify-center gap-6 md:flex-row">
+    <div className="pb-4 px-10 flex flex-col justify-center gap-6 md:flex-row">
       <div className="w-full lg:flex container mx-auto">
         <div className="w-full border border-gray-400 lg:border-gray-400 bg-white rounded-b lg:rounded-b-none rounded p-4 flex flex-col justify-between leading-normal">
           <div className="mb-4">
