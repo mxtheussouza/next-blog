@@ -1,6 +1,6 @@
 {
-  "name": "np-blog",
-  "version": "0.1.0",
+  "name": "devhacknews",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -25,7 +25,8 @@
     "next": "13.0.7",
     "next-auth": "^4.18.6",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "sharp": "^0.31.3"
   },
   "devDependencies": {
     "@types/node": "^18.11.17",
