@@ -30,7 +30,7 @@ export default function Post({
         <div className="flex justify-between px-4 mx-auto max-w-screen-xl ">
           <article className="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
             <header className="mb-4 lg:mb-6 not-format">
-              <address className="flex items-center mb-6 not-italic md:flex-row flex-col">
+              <address className="flex mb-6 not-italic md:flex-row flex-col">
                 <div className="mb-4 md:mb-0 inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
                   <Image
                     alt="Profile Image"
@@ -60,7 +60,7 @@ export default function Post({
                     <p className="text-base font-light text-gray-500 dark:text-gray-400"></p>
                   </div>
                 </div>
-                <div className="flex gap-4">
+                <div className="flex gap-4 justify-center">
                   {!data?.published &&
                     userHasValidSession &&
                     postBelongsToUser && (
