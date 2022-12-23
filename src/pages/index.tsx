@@ -50,6 +50,7 @@ export const getStaticProps: GetStaticProps = async () => {
         select: { name: true, username: true, image: true },
       },
     },
+    orderBy: { id: "desc" },
   });
 
   const data = JSON.parse(JSON.stringify(posts));
