@@ -2,11 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useSession, signOut } from "next-auth/react";
 
-import useAuthUser from "@/hooks/useAuthUser";
-
 export default function HasSession() {
   const { data: session } = useSession();
-  const { user } = useAuthUser();
 
   return (
     <div className="flex justify-center items-center flex-col gap-2">
@@ -20,11 +17,7 @@ export default function HasSession() {
       />
       <div>
         <h2 className="text-center font-bold">{session?.user?.name}</h2>
-        {!user || user?.message === "Not Found" ? (
-          <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
-        ) : (
-          <h3 className="text-center">@{user?.login}</h3>
-        )}
+        <h3 className="text-center">@{session?.user?.username}</h3>
       </div>
       <div className="flex justify-center items-center flex-col md:flex-row mt-5 gap-4">
         <Link

@@ -30,6 +30,7 @@ export default NextAuth({
       user: {
         ...session.user,
         id: user.id,
+        username: user.username,
       },
     }),
   },
