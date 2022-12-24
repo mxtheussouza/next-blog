@@ -38,7 +38,7 @@ export default function Card({
         <div className="w-full border border-gray-400 lg:border-gray-400 bg-white rounded-b lg:rounded-b-none rounded p-4 flex flex-col justify-between leading-normal">
           <div className="mb-4">
             <Link
-              href={`/post/${slug}`}
+              href={`/${slug}`}
               className="text-gray-900 font-bold text-xl hover:underline"
             >
               {title}
