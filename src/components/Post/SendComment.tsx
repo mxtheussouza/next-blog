@@ -54,7 +54,7 @@ export default function SendComment({ data }: SendCommentProps) {
       )}
       {data.comment.map((comment: CommentProps) => (
         <article
-          className="p-6 mb-6 text-base bg-white rounded-lg dark:bg-gray-900"
+          className="px-6 py-4 text-base bg-white rounded-lg dark:bg-gray-900"
           key={comment.id}
         >
           <footer className="flex justify-between items-center mb-2">
