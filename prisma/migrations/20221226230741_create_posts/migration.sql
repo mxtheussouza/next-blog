@@ -1,7 +1,7 @@
 -- CreateTable
 CREATE TABLE "posts" (
     "id" TEXT NOT NULL,
-    "authorId" TEXT,
+    "author_id" TEXT,
     "title" TEXT NOT NULL,
     "slug" TEXT NOT NULL,
     "content" TEXT,
@@ -13,4 +13,4 @@ CREATE TABLE "posts" (
 );
 
 -- AddForeignKey
-ALTER TABLE "posts" ADD CONSTRAINT "posts_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "users"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "posts" ADD CONSTRAINT "posts_author_id_fkey" FOREIGN KEY ("author_id") REFERENCES "users"("id") ON DELETE SET NULL ON UPDATE CASCADE;
