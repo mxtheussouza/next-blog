@@ -10,15 +10,29 @@ datasource db {
 model Post {
   id        String    @id @default(cuid())
   author    User?     @relation(fields: [authorId], references: [id])
-  authorId  String?
+  authorId  String?   @map("author_id")
   title     String
   slug      String
   content   String?
   published Boolean   @default(false)
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @updatedAt @map("updated_at")
+  comments  Comment[]
+  createdAt DateTime  @default(now())   @map("created_at")
+  updatedAt DateTime  @updatedAt        @map("updated_at")
 
   @@map("posts")
+}
+
+model Comment {
+  id        String    @id @default(cuid())
+  content   String
+  user      User?     @relation(fields: [userId], references: [id])
+  userId    String?   @map("user_id")
+  post      Post?     @relation(fields: [postId], references: [id])
+  postId    String?   @map("post_id")
+  createdAt DateTime  @default(now())   @map("created_at")
+  updatedAt DateTime  @updatedAt        @map("updated_at")
+
+  @@map("comments")
 }
 
 model Account {
@@ -55,7 +69,7 @@ model Session {
 
 model User {
   id            String    @id @default(cuid())
-  name          String?   @unique
+  name          String?
   username      String?   @unique
   email         String?   @unique
   emailVerified DateTime? @map("email_verified")
@@ -63,6 +77,7 @@ model User {
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @updatedAt @map("updated_at")
   posts         Post[]
+  comments      Comment[]
   accounts      Account[]
   sessions      Session[]
 

@@ -59,9 +59,6 @@ CREATE UNIQUE INDEX "accounts_provider_provider_account_id_key" ON "accounts"("p
 CREATE UNIQUE INDEX "sessions_session_token_key" ON "sessions"("session_token");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "users_name_key" ON "users"("name");
-
--- CreateIndex
 CREATE UNIQUE INDEX "users_username_key" ON "users"("username");
 
 -- CreateIndex
