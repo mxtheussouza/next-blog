@@ -21,7 +21,9 @@ export default function Post({
     postTitle,
     publishPost,
     deletePost,
-  } = usePosts(data);
+  } = usePosts(data.post);
+
+  console.log(data);
 
   return (
     <>
