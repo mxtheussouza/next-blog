@@ -23,8 +23,6 @@ export default function Post({
     deletePost,
   } = usePosts(data.post);
 
-  console.log(data);
-
   return (
     <>
       <Head>

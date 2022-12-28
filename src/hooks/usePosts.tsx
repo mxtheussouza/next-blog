@@ -34,7 +34,7 @@ export default function usePosts(data: PostsDataProps) {
     await fetch(`/api/post/${id}`, {
       method: "DELETE",
     });
-    Router.push("/");
+    await Router.push("/");
   };
 
   return {

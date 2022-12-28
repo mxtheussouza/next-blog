@@ -15,7 +15,7 @@ export default async function handle(
     user,
   } = request.body;
 
-  await prisma.comment.create({
+  const sendedComment = await prisma.comment.create({
     data: {
       content: comment,
       user: { connect: { email: user?.email } },
@@ -23,5 +23,14 @@ export default async function handle(
     },
   });
 
-  return response.status(200).json({ message: "Comment sended successfully." });
+  const sendedCommentUser = await prisma.user.findUnique({
+    where: { id: String(sendedComment?.userId) },
+  });
+
+  const sendedCommentResponse = {
+    ...sendedComment,
+    user: sendedCommentUser,
+  };
+
+  return response.status(200).json(sendedCommentResponse);
 }
