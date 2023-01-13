@@ -7,7 +7,7 @@ export default function useHome() {
   React.useEffect(() => {
     (async () => {
       try {
-        const data = await fetch(`/api/post`, {
+        const data = await fetch(`/api/posts`, {
           method: "GET",
         });
         const posts = await data.json();
