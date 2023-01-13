@@ -30,7 +30,7 @@ export default function SendComment({ data }: SendCommentProps) {
   const [sendComment, setSendComment] = React.useState<string>("");
 
   const { data: session } = useSession();
-  const { handleSubmit, comments } = useSendComment(
+  const { handleSubmit, comments, loadingSend } = useSendComment(
     sendComment,
     setSendComment,
     { data },
@@ -50,9 +50,10 @@ export default function SendComment({ data }: SendCommentProps) {
           ></textarea>
           <button
             type="submit"
+            disabled={loadingSend}
             className="w-full mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 border-b-4 border-green-600 hover:border-green-700 rounded shadow flex justify-center gap-2"
           >
-            Postar
+            {!loadingSend ? "Postar" : "..."}
           </button>
         </form>
       )}

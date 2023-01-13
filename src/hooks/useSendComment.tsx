@@ -14,9 +14,12 @@ export default function useSendComment(
   const { data: session } = useSession();
 
   const [comments, setComments] = React.useState<CommentProps[]>(data?.comment);
+  const [loadingSend, setLoadingSend] = React.useState<boolean>(false);
 
   const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
+
+    setLoadingSend(true);
 
     try {
       const body = { comment, data, user: session?.user };
@@ -29,10 +32,12 @@ export default function useSendComment(
 
       setComments([await response.json(), ...comments]);
       setSendComment("");
+      setLoadingSend(false);
     } catch (error) {
       console.error(error);
+      setLoadingSend(false);
     }
   };
 
-  return { handleSubmit, comments };
+  return { handleSubmit, comments, loadingSend };
 }

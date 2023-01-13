@@ -11,7 +11,7 @@ export default function Write() {
   const [title, setTitle] = React.useState<string>("");
   const [content, setContent] = React.useState<string>("");
 
-  const { handleSubmit } = useWrite(title, content);
+  const { handleSubmit, loadingWrite } = useWrite(title, content);
 
   return (
     <>
@@ -51,9 +51,9 @@ export default function Write() {
           <div className="flex gap-4 flex-col sm:flex-row">
             <button
               className={`${
-                (!content || !title) && "cursor-not-allowed"
+                (!content || !title || !!loadingWrite) && "cursor-not-allowed"
               } bg-white hover:bg-gray-100 text-gray-800 font-bold py-2 px-4 border-b-4 border-gray-500 hover:border-gray-500 rounded shadow flex gap-2`}
-              disabled={!content || !title}
+              disabled={!content || !title || !!loadingWrite}
               type="submit"
             >
               <p className="w-full">Criar</p>
