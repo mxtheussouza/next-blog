@@ -2,7 +2,7 @@ import React from "react";
 import { useSession } from "next-auth/react";
 import Router from "next/router";
 
-export default function useWrite(title: string, content: string) {
+export default function useSendPost(title: string, content: string) {
   const { data: session } = useSession();
 
   const [loadingWrite, setLoadingWrite] = React.useState<boolean>(false);

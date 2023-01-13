@@ -5,13 +5,13 @@ import byteMDLocale from "bytemd/locales/pt_BR.json";
 
 import { bytemdPlugins } from "@/utils/bytemdPlugins";
 
-import useWrite from "@/hooks/useWrite";
+import useSendPost from "@/hooks/useSendPost";
 
 export default function Write() {
   const [title, setTitle] = React.useState<string>("");
   const [content, setContent] = React.useState<string>("");
 
-  const { handleSubmit, loadingWrite } = useWrite(title, content);
+  const { handleSubmit, loadingWrite } = useSendPost(title, content);
 
   return (
     <>

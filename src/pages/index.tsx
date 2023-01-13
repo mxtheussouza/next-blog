@@ -7,11 +7,11 @@ import NotSession from "@/components/Home/NotSession";
 import HasSession from "@/components/Home/HasSession";
 import NoContent from "@/components/Home/NoContent";
 
-import useHome from "@/hooks/useHome";
+import useGetPosts from "@/hooks/useGetPosts";
 
 export default function Home() {
   const { data: session, status } = useSession();
-  const { posts } = useHome();
+  const { posts, loadingPosts } = useGetPosts();
 
   return (
     <>
@@ -27,19 +27,25 @@ export default function Home() {
         )}
       </main>
 
-      {!!posts ? (
+      {!loadingPosts ? (
         <>
-          {posts.map((post: PostProps) => (
-            <Card
-              key={post.id}
-              title={post.title}
-              slug={post.slug}
-              createdAt={post.createdAt}
-              authorName={post.author.name}
-              authorGitHub={post.author.username}
-              authorImage={post.author.image}
-            />
-          ))}
+          {!!posts ? (
+            <>
+              {posts.map((post: PostProps) => (
+                <Card
+                  key={post.id}
+                  title={post.title}
+                  slug={post.slug}
+                  createdAt={post.createdAt}
+                  authorName={post.author.name}
+                  authorGitHub={post.author.username}
+                  authorImage={post.author.image}
+                />
+              ))}
+            </>
+          ) : (
+            <p className="text-center">Este blog ainda não possue posts.</p>
+          )}
         </>
       ) : (
         <div className="pb-4 px-10 flex flex-col justify-center gap-6 md:flex-row">

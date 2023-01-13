@@ -11,7 +11,11 @@ interface PostsDataProps {
   };
 }
 
-export default function usePosts(data: PostsDataProps) {
+interface PostTitle {
+  [index: string]: string;
+}
+
+export default function usePostContants(data: PostsDataProps) {
   const { data: session } = useSession();
 
   const userHasValidSession = Boolean(session);
@@ -21,7 +25,7 @@ export default function usePosts(data: PostsDataProps) {
   const postTitle = {
     true: data.title,
     false: `${data.title} (Draft)`,
-  } as any;
+  } as PostTitle;
 
   const publishPost = async (id: string): Promise<void> => {
     await fetch(`/api/publish/${id}`, {

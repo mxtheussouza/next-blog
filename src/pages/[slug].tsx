@@ -10,7 +10,7 @@ import SendComment from "@/components/Post/SendComment";
 
 import { bytemdPlugins } from "@/utils/bytemdPlugins";
 
-import usePosts from "@/hooks/usePosts";
+import usePostContants from "@/hooks/usePostContants";
 
 export default function Post({
   data,
@@ -21,7 +21,7 @@ export default function Post({
     postTitle,
     publishPost,
     deletePost,
-  } = usePosts(data.post);
+  } = usePostContants(data.post);
 
   return (
     <>
