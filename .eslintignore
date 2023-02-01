@@ -2,4 +2,11 @@ node_modules/
 dist/
 .vscode/
 coverage/
+public/
 /*.js
+.next
+.cache
+next-env.d.ts
+next.config.ts
+package-lock.json
+yarn.lock
