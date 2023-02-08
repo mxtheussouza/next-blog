@@ -8,10 +8,11 @@ import HasSession from "@/components/Home/HasSession";
 import NoContent from "@/components/Home/NoContent";
 
 import useGetPosts from "@/hooks/useGetPosts";
+import Pagination from "@/components/Pagination";
 
 export default function Home() {
   const { data: session, status } = useSession();
-  const { posts, loadingPosts } = useGetPosts();
+  const { posts, loadingPosts, options, setOptions } = useGetPosts();
 
   return (
     <>
@@ -42,6 +43,23 @@ export default function Home() {
                   authorImage={post.author.image}
                 />
               ))}
+
+              <Pagination
+                currentPage={options.page}
+                maxPage={posts.length}
+                onPageBack={() => {
+                  setOptions(prev => ({
+                    ...prev,
+                    page: prev.page - 1,
+                  }));
+                }}
+                onPageNext={() => {
+                  setOptions(prev => ({
+                    ...prev,
+                    page: prev.page + 1,
+                  }));
+                }}
+              />
             </>
           ) : (
             <p className="text-center">Este blog ainda não possue posts.</p>

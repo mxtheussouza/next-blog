@@ -9,6 +9,8 @@ export default async function handle(
     return response.status(405).end();
   }
 
+  const { page } = request.query;
+
   const posts = await prisma.post.findMany({
     where: { published: true },
     include: {
@@ -17,6 +19,8 @@ export default async function handle(
       },
     },
     orderBy: { id: "desc" },
+    take: 5,
+    skip: Number(page),
   });
 
   return response.status(200).json(posts);
