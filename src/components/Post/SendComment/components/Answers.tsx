@@ -2,7 +2,9 @@ import React from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 
-import { SendCommentProps, CommentProps } from "..";
+import { CommentProps } from "..";
+
+import { dateFormatter } from "@/utils/dateFormatter";
 
 import useSendAnswers from "@/hooks/useSendAnswers";
 
@@ -12,7 +14,7 @@ interface AnswersProps {
   answerUserName: string;
   answerCreatedAt: Date;
   answerContent: string;
-  data: SendCommentProps["data"];
+  setAnswers: React.Dispatch<React.SetStateAction<CommentProps[]>>;
 }
 
 export default function Answers({
@@ -21,7 +23,7 @@ export default function Answers({
   answerUserName,
   answerCreatedAt,
   answerContent,
-  data,
+  setAnswers,
 }: AnswersProps) {
   const [sendAnswer, setSendAnswer] = React.useState<string>("");
   const [inputAnswerShow, setInputAnswerShow] = React.useState<boolean>(false);
@@ -32,13 +34,9 @@ export default function Answers({
     sendAnswer,
     setSendAnswer,
     commentId,
-    { data },
     setInputAnswerShow,
+    setAnswers,
   );
-
-  const dateFormater = (createdAt: Date) => {
-    return new Date(createdAt).toDateString().substring(4);
-  };
 
   return (
     <>
@@ -56,7 +54,7 @@ export default function Answers({
               {answerUserName}
             </p>
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              {dateFormater(answerCreatedAt)}
+              {dateFormatter(answerCreatedAt)}
             </p>
           </div>
         </footer>

@@ -6,6 +6,8 @@ import { SendCommentProps, CommentProps } from "..";
 
 import Answers from "./Answers";
 
+import { dateFormatter } from "@/utils/dateFormatter";
+
 import useSendAnswers from "@/hooks/useSendAnswers";
 
 interface CommentsProps {
@@ -29,19 +31,19 @@ export default function Comments({
   const [inputCommentShow, setInputCommentShow] =
     React.useState<boolean>(false);
 
+  const filteredAnswers = data.answer.filter(e => e.commentId === commentId);
+
+  const [answers, setAnswers] = React.useState<CommentProps[]>(filteredAnswers);
+
   const { data: session } = useSession();
 
-  const { handleSubmit, answers, loadingSend } = useSendAnswers(
+  const { handleSubmit, loadingSend } = useSendAnswers(
     sendAnswer,
     setSendAnswer,
     commentId,
-    { data },
     setInputCommentShow,
+    setAnswers,
   );
-
-  const dateFormater = (createdAt: Date) => {
-    return new Date(createdAt).toDateString().substring(4);
-  };
 
   return (
     <>
@@ -60,7 +62,7 @@ export default function Comments({
               {commentUserName}
             </p>
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              {dateFormater(commentCreatedAt)}
+              {dateFormatter(commentCreatedAt)}
             </p>
           </div>
         </footer>
@@ -122,7 +124,7 @@ export default function Comments({
           answerUserName={answer?.user.name}
           answerCreatedAt={answer?.createdAt}
           answerContent={answer?.content}
-          data={data}
+          setAnswers={setAnswers}
         />
       ))}
     </>
