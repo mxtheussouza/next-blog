@@ -45,6 +45,11 @@ export default function Comments({
     setAnswers,
   );
 
+  React.useEffect(() => {
+    document.getElementById("commentArea") &&
+      document.getElementById("commentArea")?.focus();
+  }, [inputCommentShow]);
+
   return (
     <>
       <article className="px-6 py-4 text-base bg-white rounded-lg dark:bg-gray-900">
@@ -101,6 +106,7 @@ export default function Comments({
       {inputCommentShow && (
         <form className="mb-6 flex" onSubmit={handleSubmit}>
           <textarea
+            id="commentArea"
             className="px-4 focus:ring-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-tl-lg rounded-bl-lg outline-blue-500 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Escreva uma resposta..."
             value={sendAnswer}
