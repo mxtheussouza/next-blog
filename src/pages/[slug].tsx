@@ -5,12 +5,22 @@ import Link from "next/link";
 import Image from "next/image";
 import { Viewer } from "@bytemd/react";
 import { prisma } from "@/lib/prisma";
+import { Answer } from "@prisma/client";
 
 import SendComment from "@/components/Post/SendComment";
 
 import { bytemdPlugins } from "@/utils/bytemdPlugins";
 
 import usePostContants from "@/hooks/usePostContants";
+
+type AnswersType = (Answer & {
+  user: {
+    image: string | null;
+    name: string | null;
+    username: string | null;
+    email: string | null;
+  } | null;
+})[];
 
 export default function Post({
   data,
@@ -130,7 +140,32 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     orderBy: { id: "desc" },
   });
 
-  const data = JSON.parse(JSON.stringify({ post, comment }));
+  const answerComments = await Promise.all(
+    comment.map(async comment => {
+      const answers = await prisma.answer.findMany({
+        where: {
+          commentId: comment?.id,
+        },
+        include: {
+          user: {
+            select: { name: true, username: true, email: true, image: true },
+          },
+        },
+      });
+
+      return answers;
+    }),
+  );
+
+  const answer: AnswersType = [];
+
+  answerComments.forEach(e => {
+    e.forEach(k => {
+      answer.push(k);
+    });
+  });
+
+  const data = JSON.parse(JSON.stringify({ post, comment, answer }));
 
   return {
     props: { data },

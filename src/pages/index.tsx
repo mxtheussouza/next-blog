@@ -30,7 +30,7 @@ export default function Home() {
 
       {!loadingPosts ? (
         <>
-          {!!posts ? (
+          {!!posts?.length ? (
             <>
               {posts.map((post: PostProps) => (
                 <Card
