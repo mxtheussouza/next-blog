@@ -65,7 +65,10 @@ export default function Home() {
               />
             </>
           ) : (
-            <p className="text-center">Este blog ainda não possue posts.</p>
+            <p className="text-center">
+              Este blog ainda não possue posts ou não foi encontrado o que
+              procura.
+            </p>
           )}
         </>
       ) : (
