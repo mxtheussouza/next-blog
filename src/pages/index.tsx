@@ -65,7 +65,7 @@ export default function Home() {
               />
             </>
           ) : (
-            <p className="text-center">
+            <p className="text-center mb-8 px-5">
               Este blog ainda não possue posts ou não foi encontrado o que
               procura.
             </p>
