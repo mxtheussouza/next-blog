@@ -159,9 +159,9 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
   const answer: AnswersType = [];
 
-  answerComments.forEach(e => {
-    e.forEach(k => {
-      answer.push(k);
+  answerComments.forEach(answerCommentsArrays => {
+    answerCommentsArrays.forEach(answerCommentsItens => {
+      answer.push(answerCommentsItens);
     });
   });
 

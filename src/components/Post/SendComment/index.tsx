@@ -12,6 +12,7 @@ export interface CommentProps {
   user: {
     image: string;
     name: string;
+    username: string;
   };
 }
 
@@ -67,6 +68,7 @@ export default function SendComment({ data }: SendCommentProps) {
           commentId={comment.id}
           commentUserImage={comment?.user.image}
           commentUserName={comment?.user.name}
+          commentUserNickname={comment?.user.username}
           commentCreatedAt={comment?.createdAt}
           commentContent={comment?.content}
           data={data}

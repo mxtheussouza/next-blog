@@ -14,6 +14,7 @@ interface CommentsProps {
   commentId: string;
   commentUserImage: string;
   commentUserName: string;
+  commentUserNickname: string;
   commentCreatedAt: Date;
   commentContent: string;
   data: SendCommentProps["data"];
@@ -23,6 +24,7 @@ export default function Comments({
   commentId,
   commentUserImage,
   commentUserName,
+  commentUserNickname,
   commentCreatedAt,
   commentContent,
   data,
@@ -31,7 +33,10 @@ export default function Comments({
   const [inputCommentShow, setInputCommentShow] =
     React.useState<boolean>(false);
 
-  const filteredAnswers = data.answer.filter(e => e.commentId === commentId);
+  const filteredAnswers = React.useMemo(
+    () => data.answer.filter(e => e.commentId === commentId),
+    [data.answer, commentId],
+  );
 
   const [answers, setAnswers] = React.useState<CommentProps[]>(filteredAnswers);
 
@@ -46,9 +51,14 @@ export default function Comments({
   );
 
   React.useEffect(() => {
-    document.getElementById("commentArea") &&
-      document.getElementById("commentArea")?.focus();
-  }, [inputCommentShow]);
+    const commentTextArea: HTMLInputElement | null =
+      document.querySelector("#commentArea");
+
+    if (commentTextArea) {
+      commentTextArea.focus();
+      commentTextArea.value = `@${commentUserNickname} `;
+    }
+  }, [inputCommentShow, commentUserNickname]);
 
   return (
     <>
@@ -128,6 +138,7 @@ export default function Comments({
           commentId={commentId}
           answerUserImage={answer?.user.image}
           answerUserName={answer?.user.name}
+          answerUserNickname={answer?.user.username}
           answerCreatedAt={answer?.createdAt}
           answerContent={answer?.content}
           setAnswers={setAnswers}

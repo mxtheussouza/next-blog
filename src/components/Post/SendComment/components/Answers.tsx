@@ -12,6 +12,7 @@ interface AnswersProps {
   commentId: string;
   answerUserImage: string;
   answerUserName: string;
+  answerUserNickname: string;
   answerCreatedAt: Date;
   answerContent: string;
   setAnswers: React.Dispatch<React.SetStateAction<CommentProps[]>>;
@@ -21,6 +22,7 @@ export default function Answers({
   commentId,
   answerUserImage,
   answerUserName,
+  answerUserNickname,
   answerCreatedAt,
   answerContent,
   setAnswers,
@@ -39,9 +41,14 @@ export default function Answers({
   );
 
   React.useEffect(() => {
-    document.getElementById("answerArea") &&
-      document.getElementById("answerArea")?.focus();
-  }, [inputAnswerShow]);
+    const answerTextArea: HTMLInputElement | null =
+      document.querySelector("#answerArea");
+
+    if (answerTextArea) {
+      answerTextArea.focus();
+      answerTextArea.value = `@${answerUserNickname} `;
+    }
+  }, [inputAnswerShow, answerUserNickname]);
 
   return (
     <>
