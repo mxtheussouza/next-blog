@@ -1,10 +1,16 @@
 import React from "react";
 import { PostProps } from "@/components/Card";
 
+export interface GetPostsParams {
+  page: number;
+  search: string;
+}
+
 export default function useGetPosts() {
   const [posts, setPosts] = React.useState<PostProps[]>();
-  const [options, setOptions] = React.useState({
+  const [options, setOptions] = React.useState<GetPostsParams>({
     page: 0,
+    search: "",
   });
   const [loadingPosts, setLoadingPosts] = React.useState<boolean>(true);
 
@@ -12,9 +18,12 @@ export default function useGetPosts() {
     setLoadingPosts(true);
     (async () => {
       try {
-        const data = await fetch(`/api/posts?page=${options.page}`, {
-          method: "GET",
-        });
+        const data = await fetch(
+          `/api/posts?page=${options.page}&search=${options.search}`,
+          {
+            method: "GET",
+          },
+        );
         const posts = await data.json();
         setPosts(posts);
         setLoadingPosts(false);
@@ -23,7 +32,7 @@ export default function useGetPosts() {
         setLoadingPosts(false);
       }
     })();
-  }, [options.page]);
+  }, [options]);
 
   return { posts, loadingPosts, options, setOptions };
 }

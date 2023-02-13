@@ -9,10 +9,10 @@ export default async function handle(
     return response.status(405).end();
   }
 
-  const { page } = request.query;
+  const { page, search } = request.query;
 
   const posts = await prisma.post.findMany({
-    where: { published: true },
+    where: { published: true, title: { contains: String(search) } },
     include: {
       author: {
         select: { name: true, username: true, image: true },

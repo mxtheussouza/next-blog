@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 
-import { CommentProps } from "..";
+import type { CommentProps } from "..";
 
 import { dateFormatter } from "@/utils/dateFormatter";
 
@@ -66,7 +66,7 @@ export default function Answers({
               {answerUserName}
             </p>
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              {dateFormatter(answerCreatedAt)}
+              {dateFormatter(answerCreatedAt, true)}
             </p>
           </div>
         </footer>

@@ -6,9 +6,10 @@ import Card, { PostProps } from "@/components/Card";
 import NotSession from "@/components/Home/NotSession";
 import HasSession from "@/components/Home/HasSession";
 import NoContent from "@/components/Home/NoContent";
+import SearchPosts from "@/components/Home/SearchPosts";
+import Pagination from "@/components/Pagination";
 
 import useGetPosts from "@/hooks/useGetPosts";
-import Pagination from "@/components/Pagination";
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -27,6 +28,8 @@ export default function Home() {
           <>{!session ? <NotSession /> : <HasSession />}</>
         )}
       </main>
+
+      <SearchPosts setOptions={setOptions} />
 
       {!loadingPosts ? (
         <>
